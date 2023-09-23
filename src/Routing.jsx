@@ -3,6 +3,7 @@ import App from "./App";
 import Empresas from "./views/Empresas";
 import Historia from "./views/Historia";
 import Acciones from "./views/Acciones";
+import Profile from "./views/Profile";
 
 export default function Routing(){
   return(
@@ -11,7 +12,7 @@ export default function Routing(){
         <Routes>
           <Route path={'/'} element={<App/>}/>
           <Route path={'/empresas'} element={<Empresas/>}/>
-          <Route path={'/historia/:symbol'} element={<Historia/>}/>
+          <Route path={'/historia'} element={<Historia/>}/>
           <Route path={'/acciones'} element={<Acciones/>}/>
           <Route path={'/profile'} element={<Profile/>}/>
         
