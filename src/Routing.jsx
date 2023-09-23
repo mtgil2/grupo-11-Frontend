@@ -3,6 +3,7 @@ import App from "./App";
 import Empresas from "./views/Empresas";
 import Historia from "./views/Historia";
 import Acciones from "./views/Acciones";
+import Profile from "./views/Profile";
 
 export default function Routing(){
   return(
@@ -13,6 +14,8 @@ export default function Routing(){
           <Route path={'/empresas'} element={<Empresas/>}/>
           <Route path={'/historia'} element={<Historia/>}/>
           <Route path={'/acciones'} element={<Acciones/>}/>
+          <Route path={'/profile'} element={<Profile/>}/>
+        
         </Routes>
       </BrowserRouter>
     </>
