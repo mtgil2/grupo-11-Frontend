@@ -11,7 +11,7 @@ export default function Routing(){
         <Routes>
           <Route path={'/'} element={<App/>}/>
           <Route path={'/empresas'} element={<Empresas/>}/>
-          <Route path={'/historia'} element={<Historia/>}/>
+          <Route path={'/historia/:symbol'} element={<Historia/>}/>
           <Route path={'/acciones'} element={<Acciones/>}/>
           <Route path={'/profile'} element={<Profile/>}/>
         
