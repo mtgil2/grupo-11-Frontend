@@ -1,0 +1,28 @@
+.interface-button {
+  background-color: #298e42;
+  color: white;
+  text-align: center;
+  width: 15rem;
+  height: 3rem;
+  position: relative;
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  border-radius: rem;
+  box-shadow: 0.065rem 0.188rem #50514f;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  margin-bottom: 0;
+  transition: 0.1s;
+}
+
+.interface-button:hover {
+  outline: none;
+  cursor: pointer;
+}
+
+.interface-button:active {
+  transform: translateY(0.1rem);
+}

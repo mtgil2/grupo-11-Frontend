@@ -1,0 +1,45 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 3rem;
+  background-color: #202020;
+  height: 10vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.navbar-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  margin: -1.5rem;
+}
+
+.navbar-list li {
+  margin-right: 3rem;
+}
+
+.navbar-list li:last-child {
+  position: absolute;
+  margin-right: 0;
+  right: 8rem;
+}
+
+.navbar-list a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.logo-navbar {
+  height: 2.5rem;
+  width: 3rem;
+  margin: -0.5rem;
+  margin-left: 0;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
