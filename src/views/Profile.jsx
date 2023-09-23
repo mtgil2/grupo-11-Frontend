@@ -6,7 +6,7 @@ import Loading from "../components/Loading";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
 export const Profile = () => {
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { user, isAuthenticated, getAccessTokenSilently, getIdTokenClaims } = useAuth0();
   const [userMetadata, setUserMetadata] = useState(null);
 
   useEffect(() => {
@@ -14,12 +14,14 @@ export const Profile = () => {
       const domain = "dev-jgor463dhotlvfgo.us.auth0.com";
   
       try {
-        const accessToken = await getAccessTokenSilently({
-          authorizationParams: {
-            audience: `https://${domain}/api/v2/`,
-            scope: "read:current_user",
-          },
-        });
+        const accessToken = await getIdTokenClaims();
+        console.log(accessToken)
+       //const accessToken = await getAccessTokenSilently({
+       //   authorizationParams: {
+       //     audience: `https://${domain}/api/v2/`,
+       //     scope: "read:current_user",
+       //   },
+       // });
   
         const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`
   
@@ -38,7 +40,10 @@ export const Profile = () => {
     };
   
     getUserMetadata();
-  }, [getAccessTokenSilently, user?.sub]);
+  }, [getAccessTokenSilently]);
+  if (user) {
+    console.log(user)
+}
 
   return (
     <Container className="mb-5">
