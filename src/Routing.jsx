@@ -13,6 +13,8 @@ export default function Routing(){
           <Route path={'/empresas'} element={<Empresas/>}/>
           <Route path={'/historia'} element={<Historia/>}/>
           <Route path={'/acciones'} element={<Acciones/>}/>
+          <Route path={'/profile'} element={<Profile/>}/>
+        
         </Routes>
       </BrowserRouter>
     </>
