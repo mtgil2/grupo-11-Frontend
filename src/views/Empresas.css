@@ -1,0 +1,50 @@
+/* Estilo del contenedor principal */
+div {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  /* Estilo del encabezado */
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo de la lista de empresas */
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Estilo de los elementos de la lista */
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  /* Estilo del nombre de la empresa */
+  li span {
+    font-weight: bold;
+    margin-right: 10px;
+  } 
+  
+button {
+    background-color: #394A5E;
+    border-color: aqua;
+    color: #202020;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Cambiar el color del botón cuando se pasa el ratón por encima */
+button:hover {
+    background-color: #394A5E;
+    border-color: #394A5E;
+}

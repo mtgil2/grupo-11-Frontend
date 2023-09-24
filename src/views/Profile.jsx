@@ -66,12 +66,8 @@ export const Profile = () => {
           ) }
         </Col>
       </Row>
-      <Row>
-        WE GETTING MONEY
-      </Row>
-      <a href='/empresas'>Ir a Empresas</a>
-      <a href='/historia'>Ir a Historia</a>
-      <a href='/acciones'>Ir a Acciones</a>
+      <a href='/empresas'>Ver empresas</a>
+      {/* <p>Usuario: {user}</p> */}
     </Container>
   );
 };

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import "./Empresas.css"
 
 
 export default function Empresas() {
@@ -9,7 +11,6 @@ export default function Empresas() {
 		axios.get("http://localhost:8000/companies")
 		.then((response) => {
 			setEmpresas(response.data);
-			console.log(response.data);
 		})
 		.catch((error) => {
 			console.log("\nError en archivo Empresas.jsx en la consulta axios.get a /companies:")
@@ -21,8 +22,13 @@ export default function Empresas() {
 		<>
 			<div>
 				<h2>Empresas</h2>
-				<ul> {empresas.map((empresa, index) => (
-						<li key={index}>{empresa}</li>
+				<ul>
+					{empresas.map((empresa, index) => (
+						<li>
+							{empresa.short_name}
+							{/* <Link to={`/historia/${empresa.symbol}`}><button>Ver historial</button></Link> */}
+							<Link to={`/historia/${empresa.symbol}`}><button>Ver historial</button></Link>
+						</li>
 					))}
 				</ul>
 			</div>
