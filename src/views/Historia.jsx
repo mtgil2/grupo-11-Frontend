@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "./Estilo.css"
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
 
 
 export default withAuthenticationRequired(function Historia() {
 	const { symbol } = useParams();
-  	const [historial, setHistoria] = useState([]);
+  	const [historial, setHistorial] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [page, setPage] = useState(1);
 	const [cantidadAcciones, setCantidadAcciones] = useState(0);
@@ -18,7 +19,7 @@ export default withAuthenticationRequired(function Historia() {
 		setLoading(true);
 		axios.get(`http://localhost:8000/stocks/${symbol}?page=${page}`)
 		.then((response) => {
-			setHistoria(response.data);
+			setHistorial(response.data);
 			setLoading(false);
 		})
 		.catch((error) => {
@@ -29,6 +30,9 @@ export default withAuthenticationRequired(function Historia() {
 	}, [page]);
 
 	const nextPage = () => {
+		if (historial.length < 5) {
+		  	return;
+		}
 		setPage(page + 1);
 	};
 	
@@ -39,13 +43,12 @@ export default withAuthenticationRequired(function Historia() {
 	};
 
 	const comprar_acciones = (user) => {
-		console.log("Usuario: " + user);
 		const fechaActual = new Date();
 		const datosCompra = {
-		cantidad: cantidadAcciones,
-		user: user,
-		symbol: symbol,
-		fechaCompra: fechaActual.toISOString(),
+			user_id: user.sub,
+			symbol: symbol,
+			quantity: cantidadAcciones,
+			datetime: fechaActual.toISOString(),
 		};
 
 		axios.post('http://localhost:8000/comprar/', datosCompra)
@@ -86,7 +89,7 @@ export default withAuthenticationRequired(function Historia() {
 					value={cantidadAcciones}
 					onChange={(e) => setCantidadAcciones(e.target.value)}
 				/>
-				<button onClick={comprar_acciones}>Comprar</button>
+				<button onClick={() => comprar_acciones(user)}>Comprar</button>
 				<Link to={`/empresas`}><button>Volver</button></Link>
       		</div>
 		</>
