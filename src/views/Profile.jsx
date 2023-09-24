@@ -4,13 +4,32 @@ import Loading from "../components/Loading";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import LogoutButton from "../components/LogoutButton";
 
 
 export const Profile = () => {
   const { user, isAuthenticated, getAccessTokenSilently, getIdTokenClaims } = useAuth0();
   const [userMetadata, setUserMetadata] = useState(null);
-  const [cantidadPlata, setCantidadPlata] = useState(0);
+  const [cantidadPlataAgregar, setCantidadPlataAgregar] = useState(0);
+  const [plataBilletera, setPlataBilletera] = useState(0);
 
+
+  useEffect(() => {
+    const datosPlata = {
+      user_id: user.sub,
+      plata: 0,
+		};
+		axios.post('http://localhost:8000/add_money/', datosPlata)
+		.then((response) => {
+      setPlataBilletera(response.data);
+		})
+		.catch((error) => {
+			console.log("\nError en archivo Profile.jsx en la consulta axios.post a /add_money/");
+			console.log(error);
+		});
+  }, []);
+
+  
   useEffect(() => {
     const getUserMetadata = async () => {
       const domain = "dev-jgor463dhotlvfgo.us.auth0.com";
@@ -40,29 +59,24 @@ export const Profile = () => {
         console.log(e.message);
       }
     };
-  
     getUserMetadata();
   });
 
   const agregar_plata = (user) => {
-		console.log("Usuario: " + user);
-    console.log("Cantidad de plata: " + cantidadPlata);
 		const datosPlata = {
-		cantidad: cantidadPlata,
-		user: user,
+      user_id: user.sub,
+      plata: parseFloat(cantidadPlataAgregar),
 		};
-
-		axios.post('http://localhost:8000/addmoney/', datosPlata)
+		axios.post('http://localhost:8000/add_money/', datosPlata)
 		.then((response) => {
-			// Manejar la respuesta del servidor si es necesario
+      setPlataBilletera(response.data);
 		})
 		.catch((error) => {
-			console.log("\nError en archivo Profile.jsx en la consulta axios.post a /addmoney/");
+			console.log("\nError en archivo Profile.jsx en la consulta axios.post a /add_money/");
 			console.log(error);
 		});
 	  };
 
-  // console.log(user.user_metadata);
   return (
     <Container className="mb-5">
       <Row className="align-items-center profile-header mb-5 text-center text-md-left">
@@ -75,15 +89,19 @@ export const Profile = () => {
           <h2>Bienvenid@, {user.name}</h2>
         </Col>
         <Col md>
+          <p>Actualmente tienes en tu billtera virtual</p>
+          <p>{plataBilletera}</p>
+        </Col>
+        <Col md>
           <p>Agrega plata a tu billeteria virtual</p>
           <input
           type="number"
           placeholder="Cantidad de plata"
-          value={cantidadPlata}
-          onChange={(e) => setCantidadPlata(e.target.value)}
+          value={cantidadPlataAgregar}
+          onChange={(e) => setCantidadPlataAgregar(e.target.value)}
           />
         </Col>
-        <button onClick={agregar_plata}>Agregar plata</button>
+        <button onClick={() => agregar_plata(user)}>Agregar plata</button>
       </Row>
       <Link to="/empresas"><button>Ver empresas</button></Link>
     </Container>

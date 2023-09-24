@@ -10,7 +10,6 @@ export default function App() {
       <h1>Legit Business</h1>
       <h3>Fintech</h3>
       <LoginButton/>
-      <ProfileButton/>
       <LogoutButton/>
     </>
   )

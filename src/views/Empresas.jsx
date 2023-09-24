@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import "./Empresas.css"
+import "./Estilo.css"
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
 
 export default withAuthenticationRequired(function Empresas() {
 	const [empresas, setEmpresas] = useState([]);
-	const { user } = useAuth0();
 
 	useEffect(() => {
 		axios.get("http://localhost:8000/companies")
