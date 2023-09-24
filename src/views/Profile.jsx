@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
+
 import NumericInput from "../components/NumericInput";
 import Highlight from "../components/Highlight";
+
 import Loading from "../components/Loading";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import { Link } from "react-router-dom";
+
 import BusinessButton from "../components/BusinessButton";
 import HistoryButton from "../components/HistoryButton";
 import StocksButton from "../components/StocksButton";
+
 
 export const Profile = () => {
   const { user, isAuthenticated, getAccessTokenSilently, getIdTokenClaims } = useAuth0();
@@ -58,13 +63,21 @@ export const Profile = () => {
           <h2>Bienvenid@, {user.name}</h2>
         </Col>
         <Col md>
+          <h2>hola</h2>
+          <h2>{user.sub}</h2>
+          <h2>chao</h2>
+          <p className="lead text-muted">{user.email}</p>
+          <h3>User Metadata</h3>
+          {userMetadata ? (
+            <pre>{JSON.stringify(userMetadata, null, 2)}</pre>
+          ) : (
+            "No user metadata defined"
+          ) }
           <p>Ahora mismo tienes {user.user_metadata} pesos en tu cuenta.</p>
           <NumericInput/>
         </Col>
       </Row>
-      <BusinessButton/>
-      <HistoryButton/>
-      <StocksButton/>
+      <Link to="/empresas">Ver empresas</Link>
     </Container>
   );
 };
