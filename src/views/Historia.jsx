@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
 
 
-export default function Historia() {
+export default withAuthenticationRequired(function Historia() {
 	const { symbol } = useParams();
   	const [historial, setHistoria] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -64,7 +64,7 @@ export default function Historia() {
 			<div>
 				<h2>Historial de precios de {symbol}</h2>
 				<h2>hola</h2>
-				<h2>{user}</h2>
+				<h2>{user.sub}</h2>
 				<h2>hola</h2>
 				<ul>
 					{loading ? (
@@ -94,4 +94,4 @@ export default function Historia() {
       		</div>
 		</>
 	);
-	}
+});
