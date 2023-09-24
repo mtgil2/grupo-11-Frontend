@@ -53,7 +53,7 @@ export default withAuthenticationRequired(function Historia() {
 			// Manejar la respuesta del servidor si es necesario
 		})
 		.catch((error) => {
-			console.log("\nError en archivo Historia.jsx en la consulta axios.get a /comprar/");
+			console.log("\nError en archivo Historia.jsx en la consulta axios.post a /comprar/");
 			console.log(error);
 		});
 	  };
@@ -63,9 +63,6 @@ export default withAuthenticationRequired(function Historia() {
 		<>
 			<div>
 				<h2>Historial de precios de {symbol}</h2>
-				<h2>hola</h2>
-				<h2>{user.sub}</h2>
-				<h2>hola</h2>
 				<ul>
 					{loading ? (
 						<p>Cargando...</p>

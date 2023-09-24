@@ -34,7 +34,7 @@ div {
   
 button {
     background-color: #394A5E;
-    border-color: aqua;
+    border-color: #394A5E;
     color: #202020;
     border: none;
     padding: 10px 20px;
@@ -47,4 +47,5 @@ button {
 button:hover {
     background-color: #394A5E;
     border-color: #394A5E;
+    color: #ffffff;
 }

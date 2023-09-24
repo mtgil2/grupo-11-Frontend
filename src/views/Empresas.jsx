@@ -24,14 +24,13 @@ export default withAuthenticationRequired(function Empresas() {
 		<>
 			<div>
 				<h2>Empresas</h2>
-				<h2>hola</h2>
-				<h2>{user.sub}</h2>
-          		<h2>chao</h2>
 				<ul>
 					{empresas.map((empresa, index) => (
-						<li>
+						<li key={empresa.symbol}>
 							{empresa.short_name}
-							<Link to={`/historia/${empresa.symbol}`}>Ver historial</Link>
+							<Link to={`/historia/${empresa.symbol}`}>
+								<button>Ver historial</button>
+							</Link>
 						</li>
 					))}
 				</ul>
