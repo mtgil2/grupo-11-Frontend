@@ -31,6 +31,7 @@ export default function Empresas() {
 						</li>
 					))}
 				</ul>
+				<Link to={`/profile`}><button>Volver</button></Link>
 			</div>
 		</>
 	);

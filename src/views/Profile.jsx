@@ -57,6 +57,8 @@ export const Profile = () => {
         </Col>
         <Col md>
           <h2>{user.name}</h2>
+          <h2>hola</h2>
+          <h2>{user.sub}</h2>
           <p className="lead text-muted">{user.email}</p>
           <h3>User Metadata</h3>
           {userMetadata ? (
@@ -67,7 +69,6 @@ export const Profile = () => {
         </Col>
       </Row>
       <a href='/empresas'>Ver empresas</a>
-      {/* <p>Usuario: {user}</p> */}
     </Container>
   );
 };

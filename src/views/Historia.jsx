@@ -38,12 +38,14 @@ export default function Historia() {
 		}
 	};
 
-	const comprar_acciones = () => {
-		console.log("Usuario: " + user.sub);
+	const comprar_acciones = (user) => {
+		console.log("Usuario: " + user);
+		const fechaActual = new Date();
 		const datosCompra = {
 		cantidad: cantidadAcciones,
-		user: user.sub,
+		user: user,
 		symbol: symbol,
+		fechaCompra: fechaActual.toISOString(),
 		};
 
 		axios.post('http://localhost:8000/comprar/', datosCompra)
@@ -61,6 +63,9 @@ export default function Historia() {
 		<>
 			<div>
 				<h2>Historial de precios de {symbol}</h2>
+				<h2>hola</h2>
+				<h2>{user}</h2>
+				<h2>hola</h2>
 				<ul>
 					{loading ? (
 						<p>Cargando...</p>
@@ -85,6 +90,7 @@ export default function Historia() {
 					onChange={(e) => setCantidadAcciones(e.target.value)}
 				/>
 				<button onClick={comprar_acciones}>Comprar</button>
+				<Link to={`/empresas`}><button>Volver</button></Link>
       		</div>
 		</>
 	);
