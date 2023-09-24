@@ -1,28 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
-
-import NumericInput from "../components/NumericInput";
-import Highlight from "../components/Highlight";
-
 import Loading from "../components/Loading";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
-
-import BusinessButton from "../components/BusinessButton";
-import HistoryButton from "../components/HistoryButton";
-import StocksButton from "../components/StocksButton";
+import axios from "axios";
 
 
 export const Profile = () => {
   const { user, isAuthenticated, getAccessTokenSilently, getIdTokenClaims } = useAuth0();
   const [userMetadata, setUserMetadata] = useState(null);
+  const [cantidadPlata, setCantidadPlata] = useState(0);
 
   useEffect(() => {
     const getUserMetadata = async () => {
       const domain = "dev-jgor463dhotlvfgo.us.auth0.com";
       try {
         const accessToken = await getIdTokenClaims();
-        console.log(accessToken)
+        console.log("accessToken:", accessToken)
 
         const jsonResponse = JSON.parse(accessToken);
         const jwt = jsonResponse.__raw;
@@ -50,7 +44,25 @@ export const Profile = () => {
     getUserMetadata();
   });
 
-  console.log(user.user_metadata);
+  const agregar_plata = (user) => {
+		console.log("Usuario: " + user);
+    console.log("Cantidad de plata: " + cantidadPlata);
+		const datosPlata = {
+		cantidad: cantidadPlata,
+		user: user,
+		};
+
+		axios.post('http://localhost:8000/addmoney/', datosPlata)
+		.then((response) => {
+			// Manejar la respuesta del servidor si es necesario
+		})
+		.catch((error) => {
+			console.log("\nError en archivo Profile.jsx en la consulta axios.post a /addmoney/");
+			console.log(error);
+		});
+	  };
+
+  // console.log(user.user_metadata);
   return (
     <Container className="mb-5">
       <Row className="align-items-center profile-header mb-5 text-center text-md-left">
@@ -63,21 +75,17 @@ export const Profile = () => {
           <h2>Bienvenid@, {user.name}</h2>
         </Col>
         <Col md>
-          <h2>hola</h2>
-          <h2>{user.sub}</h2>
-          <h2>chao</h2>
-          <p className="lead text-muted">{user.email}</p>
-          <h3>User Metadata</h3>
-          {userMetadata ? (
-            <pre>{JSON.stringify(userMetadata, null, 2)}</pre>
-          ) : (
-            "No user metadata defined"
-          ) }
-          <p>Ahora mismo tienes {user.user_metadata} pesos en tu cuenta.</p>
-          <NumericInput/>
+          <p>Agrega plata a tu billeteria virtual</p>
+          <input
+          type="number"
+          placeholder="Cantidad de plata"
+          value={cantidadPlata}
+          onChange={(e) => setCantidadPlata(e.target.value)}
+          />
         </Col>
+        <button onClick={agregar_plata}>Agregar plata</button>
       </Row>
-      <Link to="/empresas">Ver empresas</Link>
+      <Link to="/empresas"><button>Ver empresas</button></Link>
     </Container>
   );
 };
