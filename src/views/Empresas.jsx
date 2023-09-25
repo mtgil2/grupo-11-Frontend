@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./Estilo.css"
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import { Container, Row, Col } from "reactstrap";
 
 
 export default withAuthenticationRequired(function Empresas() {
@@ -22,19 +23,36 @@ export default withAuthenticationRequired(function Empresas() {
 	return (
 		<>
 			<div>
-				<h2>Empresas</h2>
-				<ul>
-					{empresas.map((empresa, index) => (
-						<li key={empresa.symbol}>
-							{empresa.short_name}
-							<Link to={`/historia/${empresa.symbol}`}>
-								<button>Ver historial</button>
-							</Link>
-						</li>
-					))}
-				</ul>
-				<Link to={`/profile`}><button>Volver</button></Link>
+				<Row>
+					<Col>
+						<h2>Empresas</h2>
+						<ul>
+							{empresas.map((empresa, index) => (
+								<li key={empresa.symbol}>
+									{empresa.short_name}
+									<Link to={`/historia/${empresa.symbol}`}>
+										<button>Ver historial</button>
+									</Link>
+								</li>
+							))}
+						</ul>
+					</Col>
+				</Row>
+				<Row>
+					<Col>
+						<Link to={`/Acciones`}>
+							<button>Ver Acciones</button>
+						</Link>
+					</Col>
+				</Row>
+				<Row>
+					<Col>
+						<Link to={`/profile`}>
+							<button>Volver</button>
+						</Link>
+					</Col>
+				</Row>
 			</div>
 		</>
-	);
+	  );
 });

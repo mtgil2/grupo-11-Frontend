@@ -18,7 +18,7 @@ export default withAuthenticationRequired(function Acciones() {
 			setAcciones(response.data);
 		})
 		.catch((error) => {
-			console.log("\nError en archivo Empresas.jsx en la consulta axios.get a /companies:")
+			console.log("\nError en archivo Acciones.jsx en la consulta axios.post a /companies:")
 			console.log(error);
 		  });
 	}, []);
