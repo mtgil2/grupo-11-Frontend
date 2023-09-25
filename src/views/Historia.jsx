@@ -55,6 +55,7 @@ export default withAuthenticationRequired(function Historia() {
 		axios.post('http://localhost:8000/comprar/', datosCompra)
 		.then((response) => {
 			// Manejar la respuesta del servidor si es necesario
+			console.log(response.data);
 		})
 		.catch((error) => {
 			console.log("\nError en archivo Historia.jsx en la consulta axios.post a /comprar/");
