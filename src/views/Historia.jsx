@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./Estilo.css"
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import { Container, Row, Col } from "reactstrap";
 
 
 
@@ -60,13 +61,15 @@ export default withAuthenticationRequired(function Historia() {
 			console.log(error);
 		});
 	  };
-	  
+
 
 	return (
 		<>
-			<div>
-				<h2>Historial de precios de {symbol}</h2>
-				<ul>
+			<Container>
+				<Row>
+				<Col>
+					<h2>Historial de precios de {symbol}</h2>
+					<ul>
 					{loading ? (
 						<p>Cargando...</p>
 					) : historial.length === 0 ? (
@@ -78,20 +81,33 @@ export default withAuthenticationRequired(function Historia() {
 						</li>
 						))
 					)}
-				</ul>
-				<div>
-					<button onClick={prevPage} disabled={page === 1}>Anterior</button>
-					<button onClick={nextPage}>Siguiente</button>
-				</div>
-				<input
-					type="number"
-					placeholder="Cantidad de acciones"
-					value={cantidadAcciones}
-					onChange={(e) => setCantidadAcciones(e.target.value)}
-				/>
-				<button onClick={() => comprar_acciones(user)}>Comprar</button>
-				<Link to={`/empresas`}><button>Volver</button></Link>
-      		</div>
+					</ul>
+					<Row>
+					<Col>
+						<button onClick={prevPage} disabled={page === 1}>Anterior</button>
+						<button onClick={nextPage}>Siguiente</button>
+					</Col>
+					</Row>
+					<Row>
+					<Col>
+						<input
+						type="number"
+						placeholder="Cantidad de acciones"
+						value={cantidadAcciones}
+						onChange={(e) => setCantidadAcciones(e.target.value)}
+						/>
+						<button onClick={() => comprar_acciones(user)}>Comprar</button>
+					</Col>
+					</Row>
+				</Col>
+				</Row>
+				<Row>
+				<Col>
+					<Link to={`/empresas`}><button>Volver</button></Link>
+				</Col>
+				</Row>
+			</Container>
 		</>
-	);
+	  );
+	  
 });
