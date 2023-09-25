@@ -101,9 +101,9 @@ export const Profile = () => {
           onChange={(e) => setCantidadPlataAgregar(e.target.value)}
           />
         </Col>
-        <button onClick={() => agregar_plata(user)}>Agregar plata</button>
+        <button className="boton" onClick={() => agregar_plata(user)}>Agregar plata</button>
       </Row>
-      <Link to="/empresas"><button>Ver empresas</button></Link>
+      <Link to="/empresas"><button className="boton">Ver empresas</button></Link>
     </Container>
   );
 };

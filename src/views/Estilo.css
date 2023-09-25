@@ -1,51 +1,46 @@
-/* Estilo del contenedor principal */
-div {
-    text-align: center;
-    margin: 20px;
-  }
-  
-  /* Estilo del encabezado */
-  h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  /* Estilo de la lista de empresas */
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  /* Estilo de los elementos de la lista */
-  li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 0;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  /* Estilo del nombre de la empresa */
-  li span {
-    font-weight: bold;
-    margin-right: 10px;
-  } 
-  
-button {
-    background-color: #394A5E;
-    border-color: #394A5E;
-    color: #202020;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+/* Estilo para las tablas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
 }
 
-/* Cambiar el color del botón cuando se pasa el ratón por encima */
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  text-align: center;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  background-color: #0ca4ea;
+  color: #fff;
+}
+
+.boton {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  background-color: #7997a6;
+  color: #fff;
+}
+
 button:hover {
-    background-color: #394A5E;
-    border-color: #394A5E;
-    color: #ffffff;
+  background-color: #9cb8c8;
 }

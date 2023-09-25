@@ -31,6 +31,7 @@ export default withAuthenticationRequired(function Empresas() {
 								<tr>
 								<th>Nombre empresa</th>
 								<th>Símbolo empresa</th>
+								<th>Historial</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -40,7 +41,7 @@ export default withAuthenticationRequired(function Empresas() {
 										<td>{empresa.symbol}</td>
 										<td>
 										<Link to={`/historia/${empresa.symbol}`}>
-											<button>Ver historial</button>
+											<button className="boton">Ver historial</button>
 										</Link>
 										</td>
 									</tr>
@@ -52,14 +53,14 @@ export default withAuthenticationRequired(function Empresas() {
 				<Row>
 					<Col>
 						<Link to={`/Acciones`}>
-							<button>Ver Acciones</button>
+							<button className="boton">Ver Acciones</button>
 						</Link>
 					</Col>
 				</Row>
 				<Row>
 					<Col>
 						<Link to={`/profile`}>
-							<button>Volver</button>
+							<button className="boton">Volver</button>
 						</Link>
 					</Col>
 				</Row>
