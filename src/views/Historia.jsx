@@ -68,44 +68,49 @@ export default withAuthenticationRequired(function Historia() {
 		<>
 			<Container>
 				<Row>
-				<Col>
-					<h2>Historial de precios de {symbol}</h2>
-					<ul>
-					{loading ? (
-						<p>Cargando...</p>
-					) : historial.length === 0 ? (
-						<p>No hay historial para esta compañía.</p>
-					) : (
-						historial.map((registro, index) => (
-						<li key={index}>
-							Fecha: {registro.datetime}, Precio: {registro.price}, Moneda: {registro.currency}
-						</li>
-						))
-					)}
-					</ul>
-					<Row>
 					<Col>
-						<button onClick={prevPage} disabled={page === 1}>Anterior</button>
-						<button onClick={nextPage}>Siguiente</button>
+						<h2>Historial de precios de {symbol}</h2>
+						<ul>
+						{loading ? (
+							<p>Cargando...</p>
+						) : historial.length === 0 ? (
+							<p>No hay historial para esta compañía.</p>
+						) : (
+							historial.map((registro, index) => (
+								<li key={index}>
+									Fecha: {registro.datetime}, Precio: {registro.price}, Moneda: {registro.currency}
+								</li>
+							))
+						)}
+						</ul>
+						<Row>
+							<Col>
+								<button onClick={prevPage} disabled={page === 1}>Anterior</button>
+								<button onClick={nextPage}>Siguiente</button>
+							</Col>
+						</Row>
+						<Row>
+							<Col>
+								<input
+								type="number"
+								placeholder="Cantidad de acciones"
+								value={cantidadAcciones}
+								onChange={(e) => setCantidadAcciones(e.target.value)}
+								/>
+								<button onClick={() => comprar_acciones(user)}>Comprar</button>
+							</Col>
+						</Row>
 					</Col>
-					</Row>
-					<Row>
-					<Col>
-						<input
-						type="number"
-						placeholder="Cantidad de acciones"
-						value={cantidadAcciones}
-						onChange={(e) => setCantidadAcciones(e.target.value)}
-						/>
-						<button onClick={() => comprar_acciones(user)}>Comprar</button>
-					</Col>
-					</Row>
-				</Col>
 				</Row>
 				<Row>
-				<Col>
-					<Link to={`/empresas`}><button>Volver</button></Link>
-				</Col>
+					<Col>
+						<Link to={`/empresas`}><button>Volver</button></Link>
+					</Col>
+				</Row>
+				<Row>
+					<Col>
+						<Link to={`/acciones`}><button>Ver Acciones</button></Link>
+					</Col>
 				</Row>
 			</Container>
 		</>
