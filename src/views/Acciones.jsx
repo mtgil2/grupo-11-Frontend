@@ -53,7 +53,7 @@ export default withAuthenticationRequired(function Acciones() {
 				<Row>
 					<Col>
 						<Link to={`/empresas`}>
-							<button>Volver</button>
+							<button className="boton">Volver</button>
 						</Link>
 					</Col>
 				</Row>
