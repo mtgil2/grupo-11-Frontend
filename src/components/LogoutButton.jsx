@@ -8,7 +8,7 @@ function LogoutButton() {
         <button onClick={() => {
             logout({
                 logoutParams: {
-                    returnTo: 'http://localhost:5173'
+                    returnTo: 'http://localhost:5173/'
                 }
             });
         }}>Cerrar sesión</button>
