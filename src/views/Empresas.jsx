@@ -8,15 +8,19 @@ import { Container, Row, Col, Table } from "reactstrap";
 
 export default withAuthenticationRequired(function Empresas() {
 	const [empresas, setEmpresas] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
+		setLoading(true);
 		axios.get("http://localhost:8000/companies")
 		.then((response) => {
 			setEmpresas(response.data);
+			setLoading(false);
 		})
 		.catch((error) => {
 			console.log("\nError en archivo Empresas.jsx en la consulta axios.get a /companies:")
 			console.log(error);
+			setLoading(true);
 		  });
 	}, []);
 
@@ -26,28 +30,32 @@ export default withAuthenticationRequired(function Empresas() {
 				<Row>
 					<Col>
 						<h2>Empresas</h2>
-						<Table>
-							<thead>
-								<tr>
-								<th>Nombre empresa</th>
-								<th>Símbolo empresa</th>
-								<th>Historial</th>
-								</tr>
-							</thead>
-							<tbody>
-								{empresas.map((empresa) => (
-									<tr key={empresa.symbol}>
-										<td>{empresa.short_name}</td>
-										<td>{empresa.symbol}</td>
-										<td>
-										<Link to={`/historia/${empresa.symbol}`}>
-											<button className="boton">Ver historial</button>
-										</Link>
-										</td>
+						{loading ? (
+							<p>Cargando...</p>
+						) : (
+							<Table>
+								<thead>
+									<tr>
+									<th>Nombre empresa</th>
+									<th>Símbolo empresa</th>
+									<th>Historial</th>
 									</tr>
-								))}
-							</tbody>
-						</Table>
+								</thead>
+								<tbody>
+									{empresas.map((empresa) => (
+										<tr key={empresa.symbol}>
+											<td>{empresa.short_name}</td>
+											<td>{empresa.symbol}</td>
+											<td>
+											<Link to={`/historia/${empresa.symbol}`}>
+												<button className="boton">Ver historial</button>
+											</Link>
+											</td>
+										</tr>
+									))}
+								</tbody>
+							</Table>
+						)}
 					</Col>
 				</Row>
 				<Row>
