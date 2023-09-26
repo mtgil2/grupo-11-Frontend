@@ -10,9 +10,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <Auth0Provider
   domain="dev-jgor463dhotlvfgo.us.auth0.com"
   clientId="ghRkl5zPREfedBgapN6F0SmNFLgUwq7m"
-  // redirectUri={"http://localhost:5173/profile/"}
+  
   authorizationParams={{
-    redirect_uri: "http://localhost:5173/profile/"
+    redirect_uri: "https://grupo11.me/profile/"
   }}
   scope="openid profile email logins_count"
   >
