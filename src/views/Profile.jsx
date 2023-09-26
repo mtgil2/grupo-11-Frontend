@@ -90,7 +90,7 @@ export const Profile = () => {
         </Col>
         <Col md>
           <p>Actualmente tienes en tu billtera virtual</p>
-          <p>{plataBilletera}</p>
+          <p>{plataBilletera.toFixed(2)}</p>
         </Col>
         <Col md>
           <p>Agrega plata a tu billeteria virtual</p>
@@ -99,6 +99,7 @@ export const Profile = () => {
           placeholder="Cantidad de plata"
           value={cantidadPlataAgregar}
           onChange={(e) => setCantidadPlataAgregar(e.target.value)}
+          className="input"
           />
         </Col>
         <button className="boton" onClick={() => agregar_plata(user)}>Agregar plata</button>
