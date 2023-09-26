@@ -13,13 +13,19 @@ export const Profile = () => {
   const [cantidadPlataAgregar, setCantidadPlataAgregar] = useState(0);
   const [plataBilletera, setPlataBilletera] = useState(0);
 
+  const token = getAccessTokenSilently();
+  const tokenBearer = "Bearer " + token;
 
   useEffect(() => {
     const datosPlata = {
       user_id: user.sub,
       plata: 0,
 		};
-		axios.post('http://localhost:8000/add_money/', datosPlata)
+		axios.post('http://localhost:8000/add_money/', datosPlata, {
+    headers: {
+      Authorization: tokenBearer
+    }
+})
 		.then((response) => {
       setPlataBilletera(response.data);
 		})
