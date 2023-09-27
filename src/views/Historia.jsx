@@ -14,12 +14,16 @@ export default withAuthenticationRequired(function Historia() {
 	const [loading, setLoading] = useState(true);
 	const [page, setPage] = useState(1);
 	const [cantidadAcciones, setCantidadAcciones] = useState(0);
-	const { user } = useAuth0();
+	const { user, getIdTokenClaims } = useAuth0();
 
+	const accessToken = getIdTokenClaims();
 
 	useEffect(() => {
 		setLoading(true);
-		axios.get(`${process.env.REACT_APP_BACKEND_URL}/stocks/${symbol}?page=${page}`)
+		axios.get(`${process.env.REACT_APP_BACKEND_URL}/stocks/${symbol}?page=${page}`, {
+			headers: {
+				'Authorization': 'Bearer ' + accessToken.__raw,
+			}})
 		.then((response) => {
 			setHistorial(response.data);
 			setLoading(false);
@@ -44,7 +48,7 @@ export default withAuthenticationRequired(function Historia() {
 		}
 	};
 
-	const comprar_acciones = (user) => {
+	const comprar_acciones = (user, accessToken) => {
 		const fechaActual = new Date();
 		const datosCompra = {
 			user_id: user.sub,
@@ -53,7 +57,10 @@ export default withAuthenticationRequired(function Historia() {
 			datetime: fechaActual.toISOString(),
 		};
 
-		axios.post(`${process.env.REACT_APP_BACKEND_URL}/comprar/`, datosCompra)
+		axios.post(`${process.env.REACT_APP_BACKEND_URL}/comprar`, datosCompra, {
+			headers: {
+				'Authorization': 'Bearer ' + accessToken,
+			}})
 		.then((response) => {
 			console.log(response.data);
 			history.push('/acciones');
@@ -118,7 +125,7 @@ export default withAuthenticationRequired(function Historia() {
 										onChange={(e) => setCantidadAcciones(e.target.value)}
 										className="input"
 									/>
-									<button className="boton margen" onClick={() => comprar_acciones(user)}>
+									<button className="boton margen" onClick={() => comprar_acciones(user, accessToken.__raw)}>
 										Comprar
 									</button>
 								</div>

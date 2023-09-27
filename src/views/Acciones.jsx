@@ -8,13 +8,18 @@ import { Container, Row, Col, Table } from "reactstrap";
 
 export default withAuthenticationRequired(function Acciones() {
 	const [acciones, setAcciones] = useState([]);
-	const { user } = useAuth0();
+	const { user, getIdTokenClaims } = useAuth0();
 	const [loading, setLoading] = useState(true);
+
+	const accessToken = getIdTokenClaims();
 
 	useEffect(() => {
 		setLoading(true);
 		
-		axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/${user.sub}/purchases/`)
+		axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/${user.sub}/purchases`, {
+			headers: {
+				'Authorization': 'Bearer ' + accessToken.__raw,
+			}})
 		.then((response) => {
 			setAcciones(response.data);
 			console.log(response.data);
