@@ -5,7 +5,8 @@ function LogoutButton() {
     const { isAuthenticated, logout } = useAuth0();
 
     return (
-        <button onClick={() => {
+        <button className='boton' 
+         onClick={() => {
             logout({
                 logoutParams: {
                     returnTo: 'https://grupo11.me/'

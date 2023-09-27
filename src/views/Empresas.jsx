@@ -12,7 +12,7 @@ export default withAuthenticationRequired(function Empresas() {
 
 	useEffect(() => {
 		setLoading(true);
-		axios.get("http://localhost:8000/companies")
+		axios.get(`${process.env.REACT_APP_BACKEND_URL}/companies`)
 		.then((response) => {
 			setEmpresas(response.data);
 			setLoading(false);

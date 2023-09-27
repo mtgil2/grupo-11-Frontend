@@ -6,7 +6,7 @@ function LoginButton() {
   
   return !isAuthenticated && ( // indica si el usuario ya ha iniciado sesión
     <div className="login-form">
-      <button onClick={() => loginWithRedirect()}>Iniciar Sesión</button>
+      <button className='boton' onClick={() => loginWithRedirect()}>Iniciar Sesión</button>
     </div>
   );
 }

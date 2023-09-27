@@ -13,7 +13,8 @@ export default withAuthenticationRequired(function Acciones() {
 
 	useEffect(() => {
 		setLoading(true);
-		axios.get(`http://localhost:8000/user/${user.sub}/purchases/`)
+		
+		axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/${user.sub}/purchases/`)
 		.then((response) => {
 			setAcciones(response.data);
 			console.log(response.data);

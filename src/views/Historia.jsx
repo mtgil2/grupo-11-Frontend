@@ -19,7 +19,7 @@ export default withAuthenticationRequired(function Historia() {
 
 	useEffect(() => {
 		setLoading(true);
-		axios.get(`http://localhost:8000/stocks/${symbol}?page=${page}`)
+		axios.get(`${process.env.REACT_APP_BACKEND_URL}/stocks/${symbol}?page=${page}`)
 		.then((response) => {
 			setHistorial(response.data);
 			setLoading(false);
@@ -53,7 +53,7 @@ export default withAuthenticationRequired(function Historia() {
 			datetime: fechaActual.toISOString(),
 		};
 
-		axios.post('http://localhost:8000/comprar/', datosCompra)
+		axios.post(`${process.env.REACT_APP_BACKEND_URL}/comprar/`, datosCompra)
 		.then((response) => {
 			console.log(response.data);
 			history.push('/acciones');

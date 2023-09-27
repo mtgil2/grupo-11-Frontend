@@ -19,7 +19,7 @@ export const Profile = () => {
       user_id: user.sub,
       plata: 0,
 		};
-		axios.post('http://localhost:8000/add_money/', datosPlata)
+		axios.post(`${process.env.REACT_APP_BACKEND_URL}/add_money/`, datosPlata)
 		.then((response) => {
       setPlataBilletera(response.data);
 		})
@@ -67,7 +67,7 @@ export const Profile = () => {
       user_id: user.sub,
       plata: parseFloat(cantidadPlataAgregar),
 		};
-		axios.post('http://localhost:8000/add_money/', datosPlata)
+		axios.post(`${process.env.REACT_APP_BACKEND_URL}/add_money/`, datosPlata)
 		.then((response) => {
       setPlataBilletera(response.data);
 		})
