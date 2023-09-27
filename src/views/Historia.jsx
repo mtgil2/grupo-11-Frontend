@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./Estilo.css"
@@ -15,15 +16,13 @@ export default withAuthenticationRequired(function Historia() {
 	const [page, setPage] = useState(1);
 	const [cantidadAcciones, setCantidadAcciones] = useState(0);
 	const { user, getIdTokenClaims } = useAuth0();
+	const navigate = useNavigate();
 
 	const accessToken = getIdTokenClaims();
 
 	useEffect(() => {
 		setLoading(true);
-		axios.get(`${process.env.REACT_APP_BACKEND_URL}/stocks/${symbol}?page=${page}`, {
-			headers: {
-				'Authorization': 'Bearer ' + accessToken.__raw,
-			}})
+		axios.get(`https://pvp4u06hck.execute-api.us-east-1.amazonaws.com/stocks/${symbol}?page=${page}`)
 		.then((response) => {
 			setHistorial(response.data);
 			setLoading(false);
@@ -57,13 +56,12 @@ export default withAuthenticationRequired(function Historia() {
 			datetime: fechaActual.toISOString(),
 		};
 
-		axios.post(`${process.env.REACT_APP_BACKEND_URL}/comprar`, datosCompra, {
+		axios.post(`https://7opxtzovvg.execute-api.us-east-1.amazonaws.com/testStage/comprar`, datosCompra, {
 			headers: {
 				'Authorization': 'Bearer ' + accessToken,
 			}})
 		.then((response) => {
-			console.log(response.data);
-			history.push('/acciones');
+			navigate("/acciones");
 		})
 		.catch((error) => {
 			console.log("\nError en archivo Historia.jsx en la consulta axios.post a /comprar/");
