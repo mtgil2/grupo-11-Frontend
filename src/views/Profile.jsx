@@ -21,7 +21,7 @@ export const Profile = () => {
       user_id: user.sub,
       plata: 0,
 		};
-		axios.post(`${process.env.REACT_APP_BACKEND_URL}/add_money`, datosPlata, {
+		axios.post(`https://7opxtzovvg.execute-api.us-east-1.amazonaws.com/testStage/add_money`, datosPlata, {
 			headers: {
 				'Authorization': 'Bearer ' + accessToken.__raw,
 			}})
