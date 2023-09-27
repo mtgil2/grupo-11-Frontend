@@ -7,12 +7,18 @@ import { Container, Row, Col, Table } from "reactstrap";
 
 
 export default withAuthenticationRequired(function Empresas() {
+	const { getIdTokenClaims } = useAuth0();
 	const [empresas, setEmpresas] = useState([]);
 	const [loading, setLoading] = useState(true);
 
+	const accessToken = getIdTokenClaims();
+
 	useEffect(() => {
 		setLoading(true);
-		axios.get(`${process.env.REACT_APP_BACKEND_URL}/companies`)
+		axios.get(`${process.env.REACT_APP_BACKEND_URL}/companies`, {
+			headers: {
+				'Authorization': 'Bearer ' + accessToken.__raw,
+			}})
 		.then((response) => {
 			setEmpresas(response.data);
 			setLoading(false);

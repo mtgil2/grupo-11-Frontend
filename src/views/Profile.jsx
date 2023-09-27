@@ -13,13 +13,18 @@ export const Profile = () => {
   const [cantidadPlataAgregar, setCantidadPlataAgregar] = useState(0);
   const [plataBilletera, setPlataBilletera] = useState(0);
 
+  const accessToken = getIdTokenClaims();
+
 
   useEffect(() => {
     const datosPlata = {
       user_id: user.sub,
       plata: 0,
 		};
-		axios.post(`${process.env.REACT_APP_BACKEND_URL}/add_money/`, datosPlata)
+		axios.post(`${process.env.REACT_APP_BACKEND_URL}/add_money`, datosPlata, {
+			headers: {
+				'Authorization': 'Bearer ' + accessToken.__raw,
+			}})
 		.then((response) => {
       setPlataBilletera(response.data);
 		})
@@ -34,12 +39,6 @@ export const Profile = () => {
     const getUserMetadata = async () => {
       const domain = "dev-jgor463dhotlvfgo.us.auth0.com";
       try {
-        const accessToken = await getIdTokenClaims();
-        console.log("accessToken:", accessToken)
-
-        const jsonResponse = JSON.parse(accessToken);
-        const jwt = jsonResponse.__raw;
-
         fetch(`https://${domain}/api/v2/)`, {
           method: 'GET',
           headers: {
@@ -62,12 +61,15 @@ export const Profile = () => {
     getUserMetadata();
   });
 
-  const agregar_plata = (user) => {
+  const agregar_plata = (user, accessToken) => {
 		const datosPlata = {
       user_id: user.sub,
       plata: parseFloat(cantidadPlataAgregar),
 		};
-		axios.post(`${process.env.REACT_APP_BACKEND_URL}/add_money/`, datosPlata)
+		axios.post(`${process.env.REACT_APP_BACKEND_URL}/add_money`, datosPlata, {
+			headers: {
+				'Authorization': 'Bearer ' + accessToken,
+			}})
 		.then((response) => {
       setPlataBilletera(response.data);
 		})
@@ -102,7 +104,7 @@ export const Profile = () => {
           className="input"
           />
         </Col>
-        <button className="boton" onClick={() => agregar_plata(user)}>Agregar plata</button>
+        <button className="boton" onClick={() => agregar_plata(user, accessToken.__raw)}>Agregar plata</button>
       </Row>
       <Link to="/empresas"><button className="boton">Ver empresas</button></Link>
     </Container>
