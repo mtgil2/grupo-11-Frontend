@@ -21,10 +21,19 @@ export const Profile = () => {
       user_id: user.sub,
       plata: 0,
 		};
+
+    const accessToken = getAccessTokenSilently({
+      authorizationParams: {
+        audience: 'grupo11.me/api',
+      },
+    });
+  
+    accessToken.then(result => {axios.post(`https://7opxtzovvg.execute-api.us-east-1.amazonaws.com/testStage/add_money`, datosPlata, {
+
     console.log("accessToken.__raw", accessToken.__raw);
 		axios.post(`https://7opxtzovvg.execute-api.us-east-1.amazonaws.com/testStage/add_money`, datosPlata, {
 			headers: {
-				'Authorization': 'Bearer ' + accessToken.__raw,
+				'Authorization': 'Bearer ' + result,
 			}})
 		.then((response) => {
       setPlataBilletera(response.data);
@@ -32,18 +41,28 @@ export const Profile = () => {
 		.catch((error) => {
 			console.log("\nError en archivo Profile.jsx en la consulta axios.post a /add_money/");
 			console.log(error);
-		});
+		});})
+		
   }, []);
 
 
-  const agregar_plata = (user, accessToken) => {
+  const agregar_plata = (user) => {
 		const datosPlata = {
       user_id: user.sub,
       plata: parseFloat(cantidadPlataAgregar),
 		};
+
+    const accessToken = getAccessTokenSilently({
+      authorizationParams: {
+        audience: 'grupo11.me/api',
+      },
+    });
+  
+    accessToken.then(result => {axios.post(`https://7opxtzovvg.execute-api.us-east-1.amazonaws.com/testStage/add_money`, datosPlata, {
+
 		axios.post(`https://7opxtzovvg.execute-api.us-east-1.amazonaws.com/testStage/add_money`, datosPlata, {
 			headers: {
-				'Authorization': 'Bearer ' + accessToken,
+				'Authorization': 'Bearer ' + result,
 			}})
 		.then((response) => {
       setPlataBilletera(response.data);
@@ -51,7 +70,7 @@ export const Profile = () => {
 		.catch((error) => {
 			console.log("\nError en archivo Profile.jsx en la consulta axios.post a /add_money/");
 			console.log(error);
-		});
+		});})
 	  };
 
   return (
@@ -79,7 +98,7 @@ export const Profile = () => {
           className="input"
           />
         </Col>
-        <button className="boton" onClick={() => agregar_plata(user, accessToken.__raw)}>Agregar plata</button>
+        <button className="boton" onClick={() => agregar_plata(user)}>Agregar plata</button>
       </Row>
       <Link to="/empresas"><button className="boton">Ver empresas</button></Link>
       <LogoutButton/>
