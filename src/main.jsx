@@ -12,6 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   clientId="ghRkl5zPREfedBgapN6F0SmNFLgUwq7m"
   
   authorizationParams={{
+    audience: "grupo11.me/api",
     redirect_uri: "https://grupo11.me/profile/"
   }}
   scope="openid profile email logins_count"
