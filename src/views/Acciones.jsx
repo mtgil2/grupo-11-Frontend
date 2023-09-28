@@ -16,13 +16,12 @@ export default withAuthenticationRequired(function Acciones() {
 	useEffect(() => {
 		setLoading(true);
 		
-		axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/${user.sub}/purchases`, {
+		axios.get(`https://7opxtzovvg.execute-api.us-east-1.amazonaws.com/testStage/user/${user.sub}/purchases`, {
 			headers: {
 				'Authorization': 'Bearer ' + accessToken.__raw,
 			}})
 		.then((response) => {
 			setAcciones(response.data);
-			console.log(response.data);
 			setLoading(false);
 		})
 		.catch((error) => {
@@ -40,7 +39,7 @@ export default withAuthenticationRequired(function Acciones() {
 						<h2>Acciones Compradas</h2>
 						{loading ? (
 							<p>Cargando...</p>
-						) : acciones.length === 0 ? (
+						) : acciones.length === undefined ? (
 								<p>No hay acciones compradas</p>
 						) : (
 								<Table>

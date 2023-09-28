@@ -13,7 +13,7 @@ export const Profile = () => {
   const [cantidadPlataAgregar, setCantidadPlataAgregar] = useState(0);
   const [plataBilletera, setPlataBilletera] = useState(0);
 
-  
+  const accessToken = getAccessTokenSilently();
 
 
   useEffect(() => {
@@ -21,6 +21,7 @@ export const Profile = () => {
       user_id: user.sub,
       plata: 0,
 		};
+
     const accessToken = getAccessTokenSilently({
       authorizationParams: {
         audience: 'grupo11.me/api',
@@ -28,6 +29,9 @@ export const Profile = () => {
     });
   
     accessToken.then(result => {axios.post(`https://7opxtzovvg.execute-api.us-east-1.amazonaws.com/testStage/add_money`, datosPlata, {
+
+    console.log("accessToken.__raw", accessToken.__raw);
+		axios.post(`https://7opxtzovvg.execute-api.us-east-1.amazonaws.com/testStage/add_money`, datosPlata, {
 			headers: {
 				'Authorization': 'Bearer ' + result,
 			}})
@@ -41,32 +45,6 @@ export const Profile = () => {
 		
   }, []);
 
-  
-  useEffect(() => {
-    const getUserMetadata = async () => {
-      const domain = "dev-jgor463dhotlvfgo.us.auth0.com";
-      try {
-        fetch(`https://${domain}/api/v2/)`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${jwt}`
-          }
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response failed');
-          }
-          return response.json();
-        })
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', error))
-
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
-    getUserMetadata();
-  });
 
   const agregar_plata = (user) => {
 		const datosPlata = {
@@ -81,6 +59,8 @@ export const Profile = () => {
     });
   
     accessToken.then(result => {axios.post(`https://7opxtzovvg.execute-api.us-east-1.amazonaws.com/testStage/add_money`, datosPlata, {
+
+		axios.post(`https://7opxtzovvg.execute-api.us-east-1.amazonaws.com/testStage/add_money`, datosPlata, {
 			headers: {
 				'Authorization': 'Bearer ' + result,
 			}})
@@ -109,7 +89,7 @@ export const Profile = () => {
           <p>{plataBilletera.toFixed(2)}</p>
         </Col>
         <Col md>
-          <p>Agrega plata a tu billeteria virtual</p>
+          <p>Agrega un monto a tu billetera virtual</p>
           <input
           type="number"
           placeholder="Cantidad de plata"
@@ -121,6 +101,7 @@ export const Profile = () => {
         <button className="boton" onClick={() => agregar_plata(user)}>Agregar plata</button>
       </Row>
       <Link to="/empresas"><button className="boton">Ver empresas</button></Link>
+      <LogoutButton/>
     </Container>
   );
 };

@@ -15,7 +15,6 @@ export default function Routing(){
           <Route path={'/historia/:symbol'} element={<Historia/>}/>
           <Route path={'/acciones'} element={<Acciones/>}/>
           <Route path={'/profile'} element={<Profile/>}/>
-        
         </Routes>
       </BrowserRouter>
     </>
