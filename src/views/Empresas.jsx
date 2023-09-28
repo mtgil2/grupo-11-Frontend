@@ -15,10 +15,7 @@ export default withAuthenticationRequired(function Empresas() {
 
 	useEffect(() => {
 		setLoading(true);
-		axios.get(`${process.env.REACT_APP_BACKEND_URL}/companies`, {
-			headers: {
-				'Authorization': 'Bearer ' + accessToken.__raw,
-			}})
+		axios.get(`https://pvp4u06hck.execute-api.us-east-1.amazonaws.com/companies`)
 		.then((response) => {
 			setEmpresas(response.data);
 			setLoading(false);
