@@ -1,0 +1,56 @@
+name: Deploy to S3
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install npm dependencies
+        run: npm install
+
+      - name: Build the changes
+        run: npm build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Upload to S3
+        run: aws s3 sync build/ s3://tigre2 --delete
+
+      - name: Invalidate CloudFront cache
+        run: |
+          cloudfront_invalidation_id=$(aws cloudfront create-invalidation --distribution-id YOUR_CLOUDFRONT_ID --paths "/*" --query 'Invalidation.Id' --output text)
+          echo "::set-output name=cloudfront_invalidation_id::$cloudfront_invalidation_id"
+
+      - name: Wait for cache invalidation to complete
+        id: wait-for-invalidation
+        run: |
+          while true; do
+            status=$(aws cloudfront get-invalidation --id ${{ steps.invalidate.outputs.cloudfront_invalidation_id }} --distribution-id YOUR_CLOUDFRONT_ID --query 'Invalidation.Status' --output text)
+            if [ "$status" = "Completed" ]; then
+              break
+            fi
+            sleep 30
+          done
+
+      - name: Check if cache was invalidated
+        run: |
+          echo "Cache invalidation for distribution YOUR_CLOUDFRONT_ID is complete."
+          echo "Cache Invalidation ID: ${{ steps.invalidate.outputs.cloudfront_invalidation_id }}"
